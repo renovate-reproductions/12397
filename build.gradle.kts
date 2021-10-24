@@ -35,6 +35,7 @@ subprojects {
     }
 
     dependencies {
-//        implementation(Dependencies.kotlinStdlibJdk8Extension)
+        implementation(Dependencies.kotlinStdlibJdk8Extension)
+        implementation(Dependencies.kotlinReflection)
     }
 }

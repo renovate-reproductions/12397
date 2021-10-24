@@ -5,4 +5,5 @@ object Dependencies {
 
     // Kotlin
     const val kotlinStdlibJdk8Extension = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    const val kotlinReflection = "org.jetbrains.kotlin:kotlin-reflect"
 }
