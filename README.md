@@ -15,7 +15,7 @@ But Dashboard(Issue) update well.
 
 1. Generate the repository based by caused problem on the repository.
 2. Self hosting with docker below this configuration.
-```json
+```javascript
 module.exports = {
   token: 'mytoken',
   platform: 'github',
