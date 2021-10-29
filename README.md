@@ -3,16 +3,19 @@ renovate reproduction for test
 
 ## Expected
 
-`buildSrc/src/main/kotlin/Dependencies.kt`. 
-`buildSrc/src/main/kotlin/Plugins.kt`. 
+`buildSrc/src/main/kotlin/Dependencies.kt`
+
+`buildSrc/src/main/kotlin/Plugins.kt`
 
 must be detected by renovate version check dependecy
 
 ## Happen
 
 There are no scan result on the dependency dashboard.  
-For example, spring-boot latest version is `2.5.6` but the repository is still `2.5.5`. 
-and mockk latest version is `1.12.0` but the repository is still `1.11.0`. 
+
+For example, spring-boot latest version is `2.5.6` but the repository is still `2.5.5` 
+
+and mockk latest version is `1.12.0` but the repository is still `1.11.0`
 
 ## Reproduction Progress
 
