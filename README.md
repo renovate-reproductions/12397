@@ -3,13 +3,16 @@ renovate reproduction for test
 
 ## Expected
 
-I want to generate the pull request based by our repository structure.  
-It worked before, but it doesn't work at some point.
+`buildSrc/src/main/kotlin/Dependencies.kt`
+`buildSrc/src/main/kotlin/Plugins.kt`
+
+must be detected by renovate version check dependecy
 
 ## Happen
 
-There is no pull Request for renovate bot.
-But Dashboard(Issue) update well.
+There are no scan result on the dependency dashboard.
+For example, spring-boot latest version is `2.5.6` but the repository is still `2.5.5`
+and mockk latest version is `
 
 ## Reproduction Progress
 
@@ -17,40 +20,17 @@ But Dashboard(Issue) update well.
 2. Self hosting with docker below this configuration.
 ```javascript
 module.exports = {
-  token: 'mytoken',
-  platform: 'github',
-  logLevel: 'debug',
-  onboardingConfig: {
-    extends: ['config:base'],
-  },
-  repositories: ['Oragnization/Repository'],
-  hostRules: [
-    {
-      "domainName": "github.com",
-      "token": "mytoken",
-      "concurrentRequestLimit": 20
-    }
-  ],
-  "gradle": {
-    "enabled": true
-  },
-  deepExtract: true
+	platform: 'github',
+	token: 'my_token',
+	logLevel: 'debug',
+	repositories: ['huisam/Renovate-kotlin']
 };
 ```
 3. run self hosting
 
 
-## Action By Default Configuration
+## Debug logs
 
-Run the self hosting configuration under below.
-```javascript
-module.exports = {
-  platform: 'github',
-  token: 'my_token',
-  logLevel: 'debug',
-  repositories: ['huisam/Renovate-kotlin']
-};
-```
 
 <details>
 <summary>debug log</summary>
@@ -93,7 +73,7 @@ DEBUG: Commits limit = null
 DEBUG: Clearing hostRules
 DEBUG: Adding token authentication for api.github.com to hostRules
  INFO: Repository started (repository=huisam/Renovate-kotlin)
-       "renovateVersion": "28.10.0"
+       "renovateVersion": "28.15.0"
 DEBUG: Using localDir: /tmp/renovate/repos/github/huisam/Renovate-kotlin (repository=huisam/Renovate-kotlin)
 DEBUG: initRepo("huisam/Renovate-kotlin") (repository=huisam/Renovate-kotlin)
 DEBUG: Overriding default GitHub endpoint (repository=huisam/Renovate-kotlin)
@@ -102,23 +82,27 @@ DEBUG: huisam/Renovate-kotlin default branch = main (repository=huisam/Renovate-
 DEBUG: Using personal access token for git init (repository=huisam/Renovate-kotlin)
 DEBUG: resetMemCache() (repository=huisam/Renovate-kotlin)
 DEBUG: Resetting npmrc (repository=huisam/Renovate-kotlin)
-DEBUG: checkOnboarding() (repository=huisam/Renovate-kotlin)
-DEBUG: isOnboarded() (repository=huisam/Renovate-kotlin)
-DEBUG: findFile(renovate.json) (repository=huisam/Renovate-kotlin)
+DEBUG: detectSemanticCommits() (repository=huisam/Renovate-kotlin)
 DEBUG: Initializing git repository into /tmp/renovate/repos/github/huisam/Renovate-kotlin (repository=huisam/Renovate-kotlin)
 DEBUG: Performing blobless clone (repository=huisam/Renovate-kotlin)
 DEBUG: git clone completed (repository=huisam/Renovate-kotlin)
-       "durationMs": 1456
+       "durationMs": 1490
 DEBUG: latest repository commit (repository=huisam/Renovate-kotlin)
        "latestCommit": {
-         "hash": "47c23f81e8c003f48869585debd743e57d23771a",
-         "date": "2021-10-25T23:24:23+09:00",
-         "message": "docs: fix README.md",
+         "hash": "632769a5309880c60a6b8baa7405ba8dc1a03854",
+         "date": "2021-10-29T20:42:10+09:00",
+         "message": "chore: add mockk dependency version",
          "refs": "HEAD -> main, origin/main, origin/HEAD",
          "body": "",
          "author_name": "huisam",
          "author_email": "huisam@naver.com"
        }
+DEBUG: getCommitMessages (repository=huisam/Renovate-kotlin)
+DEBUG: Semantic commits detection: angular (repository=huisam/Renovate-kotlin)
+DEBUG: angular semantic commits detected (repository=huisam/Renovate-kotlin)
+DEBUG: checkOnboarding() (repository=huisam/Renovate-kotlin)
+DEBUG: isOnboarded() (repository=huisam/Renovate-kotlin)
+DEBUG: findFile(renovate.json) (repository=huisam/Renovate-kotlin)
 DEBUG: Config file exists (repository=huisam/Renovate-kotlin)
        "fileName": "renovate.json"
 DEBUG: Retrieving issueList (repository=huisam/Renovate-kotlin)
@@ -155,19 +139,16 @@ DEBUG: Found repo ignorePaths (repository=huisam/Renovate-kotlin)
          "**/tests/**",
          "**/__fixtures__/**"
        ]
-DEBUG: detectSemanticCommits() (repository=huisam/Renovate-kotlin)
-DEBUG: getCommitMessages (repository=huisam/Renovate-kotlin)
-DEBUG: Semantic commits detection: angular (repository=huisam/Renovate-kotlin)
-DEBUG: angular semantic commits detected (repository=huisam/Renovate-kotlin)
 DEBUG: No vulnerability alerts found (repository=huisam/Renovate-kotlin)
 DEBUG: No vulnerability alerts found (repository=huisam/Renovate-kotlin)
 DEBUG: findIssue(Dependency Dashboard) (repository=huisam/Renovate-kotlin)
+DEBUG: Found issue 4 (repository=huisam/Renovate-kotlin)
 DEBUG: No baseBranches (repository=huisam/Renovate-kotlin)
 DEBUG: extract() (repository=huisam/Renovate-kotlin)
 DEBUG: Setting current branch to main (repository=huisam/Renovate-kotlin)
 DEBUG: latest commit (repository=huisam/Renovate-kotlin)
        "branchName": "main",
-       "latestCommitDate": "2021-10-25T23:24:23+09:00"
+       "latestCommitDate": "2021-10-29T20:42:10+09:00"
 DEBUG: Using file match: (^|/)tasks/[^/]+\.ya?ml$ for manager ansible (repository=huisam/Renovate-kotlin)
 DEBUG: Using file match: (^|/)requirements\.ya?ml$ for manager ansible-galaxy (repository=huisam/Renovate-kotlin)
 DEBUG: Using file match: (^|/)galaxy\.ya?ml$ for manager ansible-galaxy (repository=huisam/Renovate-kotlin)
@@ -195,7 +176,7 @@ DEBUG: Using file match: (^|/).gitmodules$ for manager git-submodules (repositor
 DEBUG: Using file match: ^(workflow-templates|\.github\/workflows)\/[^/]+\.ya?ml$ for manager github-actions (repository=huisam/Renovate-kotlin)
 DEBUG: Using file match: (^|\/)action\.ya?ml$ for manager github-actions (repository=huisam/Renovate-kotlin)
 DEBUG: Using file match: \.gitlab-ci\.yml$ for manager gitlabci (repository=huisam/Renovate-kotlin)
-DEBUG: Using file match: ^\.gitlab-ci\.yml$ for manager gitlabci-include (repository=huisam/Renovate-kotlin)
+DEBUG: Using file match: \.gitlab-ci\.yml$ for manager gitlabci-include (repository=huisam/Renovate-kotlin)
 DEBUG: Using file match: (^|/)go.mod$ for manager gomod (repository=huisam/Renovate-kotlin)
 DEBUG: Using file match: \.gradle(\.kts)?$ for manager gradle (repository=huisam/Renovate-kotlin)
 DEBUG: Using file match: (^|\/)gradle\.properties$ for manager gradle (repository=huisam/Renovate-kotlin)
@@ -333,7 +314,7 @@ DEBUG: Processing 0 branches:  (repository=huisam/Renovate-kotlin)
 DEBUG: Calculating hourly PRs remaining (repository=huisam/Renovate-kotlin)
 DEBUG: Retrieving PR list (repository=huisam/Renovate-kotlin)
 DEBUG: Retrieved 1 Pull Requests (repository=huisam/Renovate-kotlin)
-DEBUG: currentHourStart=2021-10-26T09:00:00.000+00:00 (repository=huisam/Renovate-kotlin)
+DEBUG: currentHourStart=2021-10-29T12:00:00.000+00:00 (repository=huisam/Renovate-kotlin)
 DEBUG: PR hourly limit remaining: 2 (repository=huisam/Renovate-kotlin)
 DEBUG: Calculating prConcurrentLimit (20) (repository=huisam/Renovate-kotlin)
 DEBUG: 0 PRs are currently open (repository=huisam/Renovate-kotlin)
@@ -342,7 +323,7 @@ DEBUG: Calculated maximum PRs remaining this run (repository=huisam/Renovate-kot
        "prsRemaining": 2
 DEBUG: PullRequests limit = 2 (repository=huisam/Renovate-kotlin)
 DEBUG: Calculating hourly PRs remaining (repository=huisam/Renovate-kotlin)
-DEBUG: currentHourStart=2021-10-26T09:00:00.000+00:00 (repository=huisam/Renovate-kotlin)
+DEBUG: currentHourStart=2021-10-29T12:00:00.000+00:00 (repository=huisam/Renovate-kotlin)
 DEBUG: PR hourly limit remaining: 2 (repository=huisam/Renovate-kotlin)
 DEBUG: Calculating branchConcurrentLimit (20) (repository=huisam/Renovate-kotlin)
 DEBUG: 0 already existing branches found:  (repository=huisam/Renovate-kotlin)
@@ -352,20 +333,17 @@ DEBUG: Calculated maximum branches remaining this run (repository=huisam/Renovat
 DEBUG: Branches limit = 2 (repository=huisam/Renovate-kotlin)
 DEBUG: Ensuring Dependency Dashboard (repository=huisam/Renovate-kotlin)
 DEBUG: ensureIssue(Dependency Dashboard) (repository=huisam/Renovate-kotlin)
-DEBUG: Reopening previously closed issue (repository=huisam/Renovate-kotlin)
-DEBUG: Patching issue (repository=huisam/Renovate-kotlin)
-DEBUG: Issue updated (repository=huisam/Renovate-kotlin)
+DEBUG: Issue is open and up to date - nothing to do (repository=huisam/Renovate-kotlin)
 DEBUG: Removing any stale branches (repository=huisam/Renovate-kotlin)
 DEBUG: config.repoIsOnboarded=true (repository=huisam/Renovate-kotlin)
 DEBUG: No renovate branches found (repository=huisam/Renovate-kotlin)
 DEBUG: Repository timing splits (milliseconds) (repository=huisam/Renovate-kotlin)
-       "splits": {"init": 4496, "extract": 594, "lookup": 5827, "update": 340},
-       "total": 12189
+       "splits": {"init": 4137, "extract": 986, "lookup": 9311, "update": 364},
+       "total": 15116
 DEBUG: http statistics (repository=huisam/Renovate-kotlin)
        "urls": {
          "https://api.github.com/graphql (POST)": 3,
-         "https://api.github.com/repos/huisam/Renovate-kotlin/issues/4 (GET)": 1,
-         "https://api.github.com/repos/huisam/Renovate-kotlin/issues/4 (PATCH)": 1,
+         "https://api.github.com/repos/huisam/Renovate-kotlin/issues/4 (GET)": 2,
          "https://api.github.com/repos/huisam/Renovate-kotlin/pulls (GET)": 1,
          "https://plugins.gradle.org/m2/io/spring/dependency-management/io.spring.dependency-management.gradle.plugin/0.2.1.RELEASE/io.spring.dependency-management.gradle.plugin-0.2.1.RELEASE.pom (HEAD)": 1,
          "https://plugins.gradle.org/m2/io/spring/dependency-management/io.spring.dependency-management.gradle.plugin/0.3.0.RELEASE/io.spring.dependency-management.gradle.plugin-0.3.0.RELEASE.pom (HEAD)": 1,
@@ -401,21 +379,21 @@ DEBUG: http statistics (repository=huisam/Renovate-kotlin)
          "https://services.gradle.org/versions/all (GET)": 1
        },
        "hostStats": {
-         "api.github.com": {"requestCount": 6, "requestAvgMs": 403, "queueAvgMs": 0},
+         "api.github.com": {"requestCount": 6, "requestAvgMs": 364, "queueAvgMs": 0},
          "plugins.gradle.org": {
            "requestCount": 31,
-           "requestAvgMs": 562,
-           "queueAvgMs": 1
+           "requestAvgMs": 822,
+           "queueAvgMs": 0
          },
          "services.gradle.org": {
            "requestCount": 1,
-           "requestAvgMs": 92,
+           "requestAvgMs": 53,
            "queueAvgMs": 1
          }
        },
        "totalRequests": 38
  INFO: Repository finished (repository=huisam/Renovate-kotlin)
-       "durationMs": 12189
+       "durationMs": 15116
 DEBUG: Renovate exiting
 ```
 
