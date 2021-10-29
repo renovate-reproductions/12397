@@ -1,9 +1,11 @@
+package com.huisam.renovate
+
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ApiApplication
+class RenovateApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<ApiApplication>(*args)
+    runApplication<RenovateApiApplication>(*args)
 }

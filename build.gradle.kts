@@ -10,6 +10,8 @@ plugins {
 }
 
 allprojects {
+    group = "com.huisam.renovate"
+
     repositories {
         mavenCentral()
     }

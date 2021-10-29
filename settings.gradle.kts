@@ -7,6 +7,6 @@ rootDir
         it.name != rootDir.name && it.name != "buildSrc" && it.isDirectory && file("${it.absolutePath}/build.gradle.kts").exists()
     }
     .forEach {
-        include("${it.name}")
-        project(":${it.name}").projectDir = file("$rootDir/${it.name}")
+        include("huisam-${it.name}")
+        project(":huisam-${it.name}").projectDir = file("$rootDir/${it.name}")
     }
