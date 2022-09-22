@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.5.30"
-spring-boot = "2.5.5"
+spring-boot = "2.7.4"
 
 [libraries]
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
