@@ -10,3 +10,12 @@ rootDir
         include("huisam-${it.name}")
         project(":huisam-${it.name}").projectDir = file("$rootDir/${it.name}")
     }
+
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            from(files("libs.versions.toml"))
+        }
+    }
+}

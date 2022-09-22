@@ -3,10 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     java
 
-    id("org.springframework.boot") version PluginVersions.springBoot apply false
-    id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
-    kotlin("jvm") version PluginVersions.kotlin apply false
-    kotlin("plugin.spring") version PluginVersions.kotlin apply false
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 allprojects {
@@ -37,7 +37,6 @@ subprojects {
     }
 
     dependencies {
-        implementation(Dependencies.kotlinStdlibJdk8Extension)
-        implementation(Dependencies.kotlinReflection)
+        implementation(rootProject.libs.kotlin.reflect)
     }
 }
