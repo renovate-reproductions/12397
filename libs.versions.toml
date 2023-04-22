@@ -7,7 +7,7 @@ spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-start
 spring-boot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 
-mockk = { module = "io.mockk:mockk", version = "1.13.2"}
+mockk = { module = "io.mockk:mockk", version = "1.13.5"}
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
